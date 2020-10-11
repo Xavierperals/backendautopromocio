@@ -25,3 +25,8 @@ class FormContactAdmin(admin.ModelAdmin):
     list_display_links = (
         'pk', 'name'
     )
+
+    # actions = ['make_published']
+    #
+    # def make_published(self, request, queryset):
+    #     self.message_user(request, 'test', messages.SUCCESS)
