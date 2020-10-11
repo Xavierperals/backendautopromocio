@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [
-    path('/', admin.site.urls),
+from autoproject.views import create_form_contact
 
+urlpatterns = [
+    path('', admin.site.urls),
+    path('api/v1/autoproject-form-contact', create_form_contact),
 ]

@@ -13,10 +13,9 @@ class FormContactAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
-        'region', 'city', 'neighborhood',
-        'size', 'house_price', 'comment',
-        'name', 'phone_number', 'email',
-        'wants_contact', 'created'
+        'region', 'city', 'neighborhood', 'size',
+        'house_price', 'initial_house_price', 'comment',
+        'name', 'phone_number', 'email', 'wants_contact', 'created',
     )
 
     list_filter = (

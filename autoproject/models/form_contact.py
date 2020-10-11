@@ -9,7 +9,7 @@ class FormContact(BaseModel):
     # Location
     region = models.CharField(max_length=100, verbose_name='Comarca')
     city = models.CharField(max_length=100, verbose_name='Ciutat')
-    neighborhood = models.CharField(max_length=100, null=True, verbose_name='Barri')
+    neighborhood = models.CharField(max_length=100, null=True, blank=True, verbose_name='Barri')
 
     # Size
     size = models.CharField(
@@ -33,3 +33,8 @@ class FormContact(BaseModel):
     class Meta:
         verbose_name = "Contace Autopromoció"
         verbose_name_plural = 'Contactes Autopromoció'
+
+    def initial_house_price(self) -> float:
+        return self.house_price * 0.25
+
+    initial_house_price.short_description = 'En disposició (25%)'
