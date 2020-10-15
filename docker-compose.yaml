@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+
+  db:
+    build:
+      args:
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    volumes:
+      - ./data:/var/lib/mysql
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+
+  uwsgi:
+    build:
+      args:
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db

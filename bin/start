@@ -2,9 +2,27 @@
 
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
+if [ ! -f ${PROJECT_PATH}/.env ]; then
+  cp ${PROJECT_PATH}/.env.example ${PROJECT_PATH}/.env
+  echo -e "No .env file present.\nCopying .env.example to .env"
+fi
+
 if [ ! -f ${PROJECT_PATH}/autoproject/settings/settings.py ]; then
   cp ${PROJECT_PATH}/autoproject/settings/settings.dist.py ${PROJECT_PATH}/autoproject/settings/settings.py
   echo -e "No settings.py file present.\nCopying settings.dist.py to settings.dist.py"
 fi
 
-python3 ${PROJECT_PATH}/manage.py runserver 0.0.0.0:8080
+docker-compose down --remove-orphans
+
+while read line; do export "$line";
+done < <(cat ${PROJECT_PATH}/.env | grep -v "#" | grep -v "^$")
+
+if [ "${REBUILD_IMAGE}" = true ]; then
+    docker-compose build --no-cache
+fi
+
+docker-compose up -d
+
+if [ "${APP_ENV}" = local ]; then
+    docker-compose logs -t -f
+fi
