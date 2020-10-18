@@ -31,10 +31,10 @@ class FormContact(BaseModel):
     wants_contact = models.BooleanField(verbose_name='Vol ser contactat?')
 
     class Meta:
-        verbose_name = "Contace Autopromoció"
-        verbose_name_plural = 'Contactes Autopromoció'
+        verbose_name = "Contacte Autoproject"
+        verbose_name_plural = 'Contactes Autoproject'
 
     def initial_house_price(self) -> float:
-        return self.house_price * 0.25
+        return self.house_price * 0.20
 
-    initial_house_price.short_description = 'En disposició (25%)'
+    initial_house_price.short_description = 'En disposició (20%)'
