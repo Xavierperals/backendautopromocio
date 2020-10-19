@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path
 
 from autoproject.views import create_form_contact
+from autopromotion.views import all_projects, home_page_projects, project
 
 urlpatterns = [
     path('', admin.site.urls),
     path('api/v1/autoproject-form-contact', create_form_contact),
+    path('api/v1/projects', all_projects),
+    path('api/v1/projects/<int:pid>', project),
+    path('api/v1/home-page-projects', home_page_projects),
 ]
