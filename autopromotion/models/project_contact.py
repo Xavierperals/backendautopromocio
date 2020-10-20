@@ -1,12 +1,11 @@
-from autoproject.models import BaseModel
 from django.db import models
 
-# from autopromotion.models import Project
+from autoproject.models import BaseModel
+from .project import Project
 
 
 class ProjectContact(BaseModel):
-
-    # property = models.ForeignKey(Project)
+    property = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
