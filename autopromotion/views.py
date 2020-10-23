@@ -14,7 +14,8 @@ def all_projects(request: HttpRequest) -> JsonResponse:
 
 def project(request: HttpRequest, pid: int) -> JsonResponse:
     try:
-        return JsonResponse(model_to_dict(Project.objects.get(pk=pid)))
+        db_project = Project.objects.get(pk=pid)
+        return JsonResponse(mount_single_project_response(db_project))
     except ObjectDoesNotExist:
         return JsonResponse({
             'error': 'Project not found.'
@@ -30,6 +31,12 @@ def home_page_projects(request: HttpRequest) -> JsonResponse:
 def mount_response(projects: List[Project]) -> JsonResponse:
     return JsonResponse({
         'projects': [
-            model_to_dict(project) for project in projects
+            mount_single_project_response(p) for p in projects
         ],
     })
+
+
+def mount_single_project_response(p: Project) -> dict:
+    response = model_to_dict(p)
+    response['amenties'] = p.splitted_amenties()
+    return response

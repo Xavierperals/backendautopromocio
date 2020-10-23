@@ -26,6 +26,12 @@ class FormContactAdmin(admin.ModelAdmin):
         'pk', 'name'
     )
 
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
     # actions = ['make_published']
     #
     # def make_published(self, request, queryset):
