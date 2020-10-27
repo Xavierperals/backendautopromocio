@@ -1,8 +1,9 @@
 from typing import List
 
-from django.forms.models import model_to_dict
 from django.core.exceptions import ObjectDoesNotExist
+from django.forms.models import model_to_dict
 from django.http import HttpRequest, JsonResponse
+
 from autopromotion.models import Project
 
 
@@ -39,4 +40,7 @@ def mount_response(projects: List[Project]) -> JsonResponse:
 def mount_single_project_response(p: Project) -> dict:
     response = model_to_dict(p)
     response['amenties'] = p.splitted_amenties()
+    response['pictures'] = [
+        '/media' + image.file.url for image in p.images()
+    ]
     return response

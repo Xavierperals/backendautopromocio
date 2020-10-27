@@ -5,7 +5,7 @@ from .project import Project
 
 
 class ProjectImage(BaseModel):
-    property = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=100)
     file = models.FileField(upload_to='project_images')

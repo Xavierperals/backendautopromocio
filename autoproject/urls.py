@@ -13,9 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from autoproject import settings
 from autoproject.views import create_form_contact
 from autopromotion.views import all_projects, home_page_projects, project
 
@@ -25,4 +27,4 @@ urlpatterns = [
     path('api/v1/projects', all_projects),
     path('api/v1/projects/<int:pid>', project),
     path('api/v1/home-page-projects', home_page_projects),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

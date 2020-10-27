@@ -67,3 +67,10 @@ class Project(BaseModel):
             return []
 
         return [amenty.strip() for amenty in amenties.split(',')]
+
+    def __str__(self) -> str:
+        return str(self.pk) + ' ' + str(self.title)
+
+    def images(self):
+        from .project_image import ProjectImage
+        return ProjectImage.objects.filter(project=self).all()
