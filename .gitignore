@@ -132,4 +132,4 @@ dmypy.json
 # Autoproject
 autoproject/settings/settings.py
 data/
-media/
+media/project_images
