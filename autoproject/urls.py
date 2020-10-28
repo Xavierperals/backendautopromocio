@@ -27,4 +27,5 @@ urlpatterns = [
     path('api/v1/projects', all_projects),
     path('api/v1/projects/<int:pid>', project),
     path('api/v1/home-page-projects', home_page_projects),
+    # path('api/v1/project/<int:pid>/contact')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
