@@ -5,7 +5,7 @@ from .project import Project
 
 
 class ProjectContact(BaseModel):
-    property = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)

@@ -23,18 +23,38 @@ class ProjectAdmin(admin.ModelAdmin):
 @admin.register(ProjectImage)
 class ProjectImageAdmin(admin.ModelAdmin):
     list_display = (
-        'pk', 'name', 'project', 'created',
+        'pk', 'project', 'created',
     )
 
     list_filter = (
-        'project',
+        'project__title',
     )
 
     list_display_links = (
-        'pk', 'name',
+        'pk',
     )
 
 
 @admin.register(ProjectContact)
 class ProjectContactAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'pk', 'name', 'project', 'phone', 'email',
+    )
+
+    readonly_fields = (
+        'pk', 'project', 'name', 'phone', 'email', 'comment',
+    )
+
+    list_filter = (
+        'project__title', 'phone', 'email',
+    )
+
+    list_display_links = (
+        'pk', 'name'
+    )
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False

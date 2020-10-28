@@ -9,7 +9,6 @@ from autopromotion.models import Project
 
 def all_projects(request: HttpRequest) -> JsonResponse:
     projects = Project.objects.all()
-    print(projects)
     return mount_response(projects)
 
 

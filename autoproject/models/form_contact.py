@@ -35,6 +35,6 @@ class FormContact(BaseModel):
         verbose_name_plural = 'Contactes Autoproject'
 
     def initial_house_price(self) -> float:
-        return self.house_price * 0.20
+        return float(self.house_price) * 0.20
 
     initial_house_price.short_description = 'En disposició (20%)'
