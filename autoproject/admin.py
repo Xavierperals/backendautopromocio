@@ -9,7 +9,7 @@ class FormContactAdmin(admin.ModelAdmin):
         'pk', 'region', 'city', 'neighborhood',
         'size', 'house_price', 'comment',
         'name', 'phone_number', 'email',
-        'wants_contact', 'created'
+        'wants_contact', 'creation_date'
     )
 
     readonly_fields = (
@@ -25,6 +25,12 @@ class FormContactAdmin(admin.ModelAdmin):
     list_display_links = (
         'pk', 'name'
     )
+
+    def creation_date(self, obj):
+        return obj.created.strftime("%d %b %Y %H:%M")
+
+    creation_date.admin_order_field = 'created'
+    creation_date.short_description = 'Creat'
 
     def has_add_permission(self, request, obj=None):
         return False

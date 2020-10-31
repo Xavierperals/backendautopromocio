@@ -131,3 +131,12 @@ STATIC_ROOT = '/app/autoproject/static'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '../media/')
 MEDIA_URL = '/media/'
+
+# https://django-jazzmin.readthedocs.io/configuration/#configuration
+JAZZMIN_SETTINGS = {
+    # Title on the brand, and the login screen (19 chars max)
+    "site_header": "Admin",
+
+    # Field name on user model that contains avatar image
+    "user_avatar": None,
+}

@@ -28,7 +28,7 @@ class FormContact(BaseModel):
     email = models.EmailField(max_length=250)
 
     # Wants more contact
-    wants_contact = models.BooleanField(verbose_name='Vol ser contactat?')
+    wants_contact = models.BooleanField(verbose_name='Contacte')
 
     class Meta:
         verbose_name = "Contacte Autoproject"
