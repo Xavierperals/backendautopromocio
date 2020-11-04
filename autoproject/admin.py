@@ -7,15 +7,16 @@ from autoproject.models import FormContact
 class FormContactAdmin(admin.ModelAdmin):
     list_display = (
         'pk', 'region', 'city', 'neighborhood',
-        'size', 'house_price', 'comment',
+        'house_price', 'size', 'rooms', 'comment',
         'name', 'phone_number', 'email',
         'wants_contact', 'creation_date'
     )
 
     readonly_fields = (
-        'region', 'city', 'neighborhood', 'size',
-        'house_price', 'initial_house_price', 'comment',
-        'name', 'phone_number', 'email', 'wants_contact', 'created',
+        'region', 'city', 'neighborhood',
+        'house_price', 'initial_house_price', 'size', 'rooms',
+        'comment', 'name', 'phone_number', 'email',
+        'wants_contact', 'created',
     )
 
     list_filter = (
