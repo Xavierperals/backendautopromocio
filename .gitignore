@@ -133,3 +133,5 @@ dmypy.json
 autoproject/settings/settings.py
 data/
 media/project_images
+dumps/*
+!dumps/.gitkeep

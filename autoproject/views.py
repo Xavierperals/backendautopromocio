@@ -35,11 +35,6 @@ def create_form_contact(request: HttpRequest) -> JsonResponse:
 
         return JsonResponse({
             'success': True,
-            'agent': {
-                'os': user_agent.os,
-                'browser': user_agent.browser,
-                'device': user_agent.device,
-            }
         })
     else:
         return JsonResponse({

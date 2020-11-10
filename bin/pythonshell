@@ -1,0 +1,6 @@
+#!/bin/bash
+
+PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
+exec $PROJECT_PATH/bin/manage shell
+

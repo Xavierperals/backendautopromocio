@@ -1,0 +1,28 @@
+#!/bin/bash
+
+CONTAINER_NAME="$(docker ps --format "{{.Names}}" | grep mysql)"
+
+if [[ -z ${CONTAINER_NAME} ]]; then
+    echo "UWSGI container seems that is not running.";
+    exit 1;
+fi
+
+PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
+if [ ! -f ${PROJECT_PATH}/.env ]; then
+  cp ${PROJECT_PATH}/.env.example ${PROJECT_PATH}/.env
+  echo -e "No .env file present.\nCopying .env.example to .env"
+fi
+
+while read line; do export "$line";
+done < <(cat ${PROJECT_PATH}/.env | grep -v "#" | grep -v "^$")
+
+DATE=$(date -u +"%Y-%m-%dT%H:%M")
+FILENAME=backup-${DATE}.sql
+
+FILEPATH=$PROJECT_PATH/dumps/$FILENAME
+COMMAND="mysqldump --user=root --password=$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE"
+
+docker exec -u 1000 -it "${CONTAINER_NAME}" $COMMAND > $FILEPATH
+
+echo "Done"

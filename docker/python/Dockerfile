@@ -2,7 +2,9 @@ FROM python:3.6.8-jessie
 
 WORKDIR /app
 
-RUN apt-get -y update && apt-get -y upgrade
+RUN apt-get -y update
+    && apt-get -y upgrade
+    && apt-get install -y mysql-client
 
 RUN pip install --upgrade pip
 
