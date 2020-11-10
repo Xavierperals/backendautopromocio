@@ -1,8 +1,8 @@
 from django.db import models
 
 from autoproject.models import BaseModel
-from autoproject.valueobjects import HomeSize, Rooms
 from autoproject.validators import validate_house_price_value
+from autoproject.valueobjects import HomeSize, Rooms
 
 
 class FormContact(BaseModel):
@@ -35,7 +35,21 @@ class FormContact(BaseModel):
     # Wants more contact
     wants_contact = models.BooleanField(verbose_name='Contacte')
 
+    # Metadata
+    ip = models.GenericIPAddressField(verbose_name="IP", null=True)
+
     # User Agent Information
+    browser = models.CharField(max_length=150, verbose_name='Navegador', null=True)
+    browser_version = models.CharField(max_length=150, verbose_name='Versió de navegador', null=True)
+
+    os = models.CharField(max_length=150, verbose_name='Sistema Operatiu', null=True)
+    os_version = models.CharField(max_length=150, verbose_name='Versió de sistema operatiu', null=True)
+
+    device_family = models.CharField(max_length=150, verbose_name='Familia de dispositiu', null=True)
+    device_brand = models.CharField(max_length=150, verbose_name='Marca del dispositiu', null=True)
+    device_model = models.CharField(max_length=150, verbose_name='Model del dispositiu', null=True)
+
+    raw_user_agent = models.CharField(max_length=256, verbose_name='User Agent')
 
     class Meta:
         verbose_name = "Contacte Autoproject"

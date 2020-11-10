@@ -16,7 +16,10 @@ class FormContactAdmin(admin.ModelAdmin):
         'region', 'city', 'neighborhood',
         'house_price', 'initial_house_price', 'size', 'rooms',
         'comment', 'name', 'phone_number', 'email',
-        'wants_contact', 'created',
+        'wants_contact', 'created', 'ip', 'browser',
+        'browser_version', 'os', 'os_version',
+        'device_family', 'device_brand', 'device_model',
+        'raw_user_agent',
     )
 
     list_filter = (
