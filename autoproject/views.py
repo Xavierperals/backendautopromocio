@@ -29,7 +29,8 @@ def create_form_contact(request: HttpRequest) -> JsonResponse:
         form_contact.device_family = device.family
         form_contact.device_model = device.model
         form_contact.raw_user_agent = user_agent.ua_string
-        form_contact.ip = request.META.get('REMOTE_ADDR')
+
+        form_contact.ip = get_client_ip(request)
 
         form_contact.save()
 
@@ -41,3 +42,12 @@ def create_form_contact(request: HttpRequest) -> JsonResponse:
             'success': False,
             'errors': request_form.errors,
         })
+
+
+def get_client_ip(request: HttpRequest) -> str:
+    x_forwarded_for = request.META.get('X-FORWARDED-FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
