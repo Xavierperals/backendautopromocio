@@ -3,6 +3,7 @@ from typing import List
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 from django.http import HttpRequest, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from autopromotion.forms import ProjectContactForm
 from autopromotion.models import Project, ProjectContact
@@ -28,6 +29,7 @@ def home_page_projects(request: HttpRequest) -> JsonResponse:
     return mount_response(projects)
 
 
+@csrf_exempt
 def project_contact(request: HttpRequest, pid: int) -> JsonResponse:
     if request.method != 'POST':
         return JsonResponse({'error': 'Wrong method.'})
