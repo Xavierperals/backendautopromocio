@@ -1,3 +1,4 @@
+import json
 from django.http import HttpRequest, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -31,6 +32,8 @@ def create_form_contact(request: HttpRequest) -> JsonResponse:
         form_contact.device_model = device.model
         form_contact.raw_user_agent = user_agent.ua_string
         form_contact.ip = request.META.get('REMOTE_ADDR')
+        print(json.dumps(request.META, indent=4))
+
         form_contact.save()
 
         return JsonResponse({
