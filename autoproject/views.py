@@ -45,9 +45,16 @@ def create_form_contact(request: HttpRequest) -> JsonResponse:
 
 
 def get_client_ip(request: HttpRequest) -> str:
-    x_forwarded_for = request.META.get('X-FORWARDED-FOR')
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+# ['REQUEST_METHOD', 'REQUEST_URI', 'PATH_INFO', 'QUERY_STRING', 'SERVER_PROTOCOL', 'SCRIPT_NAME', 'SERVER_NAME',
+#  'SERVER_PORT', 'UWSGI_ROUTER', 'REMOTE_ADDR', 'REMOTE_PORT', 'HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_SERVER',
+#  'HTTP_X_FORWARDED_FOR', 'HTTP_HOST', 'HTTP_CONNECTION', 'CONTENT_LENGTH', 'HTTP_ACCEPT', 'HTTP_USER_AGENT',
+#  'CONTENT_TYPE', 'HTTP_ORIGIN', 'HTTP_SEC_FETCH_SITE', 'HTTP_SEC_FETCH_MODE', 'HTTP_SEC_FETCH_DEST', 'HTTP_REFERER',
+#  'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE']
