@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from autopromotion.models import Project, ProjectContact, ProjectImage
+from autopromotion.models import Project, ProjectContact, ProjectImage, Contact
 
 
 class ProjectImageAdmin(admin.TabularInline):
@@ -51,3 +51,28 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = (
         ProjectImageAdmin,
     )
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk', 'name', 'phone', 'email',
+    )
+
+    readonly_fields = (
+        'pk', 'name', 'phone', 'email', 'comment',
+    )
+
+    list_filter = (
+        'phone', 'email',
+    )
+
+    list_display_links = (
+        'pk', 'name'
+    )
+
+    def has_add_permission(self, request, obj=None) -> bool:
+        return False
+
+    def has_change_permission(self, request, obj=None) -> bool:
+        return False

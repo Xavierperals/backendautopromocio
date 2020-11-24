@@ -5,7 +5,7 @@ from django.forms.models import model_to_dict
 from django.http import HttpRequest, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from autopromotion.forms import ProjectContactForm
+from autopromotion.forms import ProjectContactForm, ContactForm
 from autopromotion.models import Project, ProjectContact
 
 
@@ -43,6 +43,25 @@ def project_contact(request: HttpRequest, pid: int) -> JsonResponse:
         contact.project = db_project
         contact.save()
 
+        return JsonResponse({
+            'success': True,
+        })
+    else:
+        return JsonResponse({
+            'success': False,
+            'errors': form.errors,
+        })
+
+
+@csrf_exempt
+def contact(request: HttpRequest) -> JsonResponse:
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Wrong method.'})
+
+    form = ContactForm(request.POST)
+
+    if form.is_valid():
+        form.save()
         return JsonResponse({
             'success': True,
         })
