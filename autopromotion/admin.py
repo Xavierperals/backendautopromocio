@@ -35,7 +35,7 @@ class ProjectContactAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = (
-        'pk', 'title', 'subtitle', 'location', 'properties_number_total',
+        'pk', 'title', 'subtitle', 'properties_number_total',
         'properties_number_rest', 'min_price', 'status', 'home_page', 'created',
         'modified',
     )
