@@ -10,16 +10,13 @@ class Project(BaseModel):
     subtitle = models.CharField(max_length=200, verbose_name='Subtítol')
     description = models.TextField(default='', verbose_name='Descripció')
 
-    location = models.CharField(
-        max_length=100,
-        verbose_name='Localització'
-    )
     maps_location = models.CharField(
         max_length=256,
         verbose_name='Localització Google Maps',
     )
 
-    # pictures = models.FileField()  # TODO relationship
+    grid_image = models.ImageField(upload_to='project_images', verbose_name='Imatge Principal')
+
     amenties = models.CharField(
         max_length=500,
         verbose_name='Caracteristiques',
@@ -72,5 +69,4 @@ class Project(BaseModel):
         return str(self.pk) + ' ' + str(self.title)
 
     def images(self):
-        from .project_image import ProjectImage
-        return ProjectImage.objects.filter(project=self).all()
+        return self.projectimage_set.all()

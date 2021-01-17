@@ -10,7 +10,7 @@ from autopromotion.models import Project, ProjectContact
 
 
 def all_projects(request: HttpRequest) -> JsonResponse:
-    projects = Project.objects.all()
+    projects = Project.objects.filter(status='active')
     return mount_response(projects)
 
 
@@ -39,9 +39,9 @@ def project_contact(request: HttpRequest, pid: int) -> JsonResponse:
     if form.is_valid():
         db_project = Project.objects.get(pk=pid)
 
-        contact: ProjectContact = form.save(commit=False)
-        contact.project = db_project
-        contact.save()
+        project_contact: ProjectContact = form.save(commit=False)
+        project_contact.project = db_project
+        project_contact.save()
 
         return JsonResponse({
             'success': True,
@@ -84,6 +84,7 @@ def mount_response(projects: List[Project]) -> JsonResponse:
 def mount_single_project_response(p: Project) -> dict:
     response = model_to_dict(p)
     response['amenties'] = p.splitted_amenties()
+    response['grid_image'] = p.grid_image.url
     response['pictures'] = [
         image.file.url for image in p.images()
     ]

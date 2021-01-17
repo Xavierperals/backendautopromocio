@@ -6,11 +6,11 @@ from .project import Project
 
 class ProjectImage(BaseModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='project_images')
+    file = models.ImageField(upload_to='project_images')
 
     class Meta:
         verbose_name = 'Imatge de Projecte'
         verbose_name_plural = 'Imatges de Projecte'
 
     def __str__(self) -> str:
-       return self.file.url
+        return self.file.url
