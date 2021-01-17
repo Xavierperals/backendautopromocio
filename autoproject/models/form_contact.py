@@ -25,12 +25,12 @@ class FormContact(BaseModel):
     )
 
     # Comment
-    comment = models.CharField(max_length=250, verbose_name='Comentari')
+    comment = models.CharField(max_length=250, verbose_name='Comentari', null=True, blank=True)
 
     # User info
     name = models.CharField(max_length=100, verbose_name='Nom')
-    phone_number = models.CharField(max_length=15, verbose_name='Telf')
     email = models.EmailField(max_length=250)
+    phone_number = models.CharField(max_length=15, verbose_name='Telf', null=True, blank=True)
 
     # Wants more contact
     wants_contact = models.BooleanField(verbose_name='Contacte')
