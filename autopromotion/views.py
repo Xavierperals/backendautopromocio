@@ -32,7 +32,7 @@ def home_page_projects(request: HttpRequest) -> JsonResponse:
 @csrf_exempt
 def project_contact(request: HttpRequest, pid: int) -> JsonResponse:
     if request.method != 'POST':
-        return JsonResponse({'error': 'Wrong method.'})
+        return JsonResponse({ 'error': 'Wrong method.' })
 
     form = ProjectContactForm(request.POST)
 
@@ -56,7 +56,7 @@ def project_contact(request: HttpRequest, pid: int) -> JsonResponse:
 @csrf_exempt
 def contact(request: HttpRequest) -> JsonResponse:
     if request.method != 'POST':
-        return JsonResponse({'error': 'Wrong method.'})
+        return JsonResponse({ 'error': 'Wrong method.' })
 
     form = ContactForm(request.POST)
 
@@ -84,7 +84,10 @@ def mount_response(projects: List[Project]) -> JsonResponse:
 def mount_single_project_response(p: Project) -> dict:
     response = model_to_dict(p)
     response['amenties'] = p.splitted_amenties()
-    response['grid_image'] = p.grid_image.url
+
+    if p.grid_image:
+        response['grid_image'] = p.grid_image.url
+        
     response['pictures'] = [
         image.file.url for image in p.images()
     ]
